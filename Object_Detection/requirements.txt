@@ -1,0 +1,8 @@
+opencv-python-headless
+matplotlib == 2.2.2
+torchvision
+numpy
+scikit-learn >= 0.19.1
+scikit-image == 0.15.0
+Tqdm == 4.42.0
+thop

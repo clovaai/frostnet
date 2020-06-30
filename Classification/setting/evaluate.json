@@ -1,0 +1,33 @@
+{
+    "test_config": {     
+        "weight_name": "./result/mobilenet_v3_large04-21_1715_QSGD/model_1.pth",
+        "Model": "mobilenet_v2",
+        "epochs": 1,
+        "batch_size" :256,
+        "save_dir": "./result",
+        
+        "learning_rate": 5e-1,
+        "FP_epoch": 1,
+        "warmup_epoch" : 5,
+        "warmup_lr": 0.0,
+        "lrsch" : "cos_lr",        
+        "restart_epoch" : 100,
+        "annealing" : false,
+        "optim" : "QSGD",
+        "clip_by" : 1e-3,
+        "noise_decay": 5e-2,
+        "weight_decay" : 1e-5,
+        "toss_coin": true,
+        "nesterov" : true,
+        "amsgrad" : false          
+    },
+    "data_config": {
+        "dataset_name": "cifar10",
+        "num_classes" : 10,
+        "data_dir": "./data/",
+        "ignore_idx" : 255,
+        "num_work" : 8,
+        "w": 32,
+        "h": 32
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "train_config": {
+        "resume": "",
+        "Model": "mobilenet_v2",
+        "learning_rate": 5e-3,
+        "epochs": 400,
+        "batch_size" : 64,
+        "FP_epoch": 1,
+        "warmup_epoch" : 5,
+        "warmup_lr": 0.0,
+        "lrsch" : "cos_lr",        
+        "restart_epoch" : 100,
+        "annealing" : false,
+        "save_dir": "./result",
+        "optim" : "QSGD",
+        "clip_by" : 1e-3,
+        "noise_decay": 1e-2,
+        "weight_decay" : 1e-5,
+        "toss_coin": true,
+        "nesterov" : true,
+        "amsgrad" : false
+    },
+    "data_config": {
+        "dataset_name": "ILSVRC2015",
+        "num_classes" : 1000,
+        "data_dir": "./data/",
+        "ignore_idx" : 255,
+        "num_work" : 8,
+        "w": 32,
+        "h": 32
+    }
+}

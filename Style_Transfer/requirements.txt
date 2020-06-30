@@ -1,0 +1,7 @@
+tqdm
+numpy
+visdom
+pillow<7
+torchvision
+dominate
+

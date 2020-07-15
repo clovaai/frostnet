@@ -89,29 +89,29 @@ def download_data(dataset_name='imagenet_tiny',datapath = '~/../data/'):
                                                  std=[0.229, 0.224, 0.225]),
                             ]))
 
-        elif dataset_name == 'cifar100':
-            dataset = torchvision.datasets.CIFAR100(
-                             datapath + 'cifar100',
-                             train = True,
-                             download=False,
-                            transform = transforms.Compose([
-                            transforms.RandomResizedCrop(32),
-                            transforms.RandomHorizontalFlip(),
-                            transforms.ToTensor(),
-                            transforms.Normalize(mean=[0.5071, 0.4865, 0.4409],
-                                                 std=[0.2673, 0.2564, 0.2762])
-                            ]))
-            dataset_test = torchvision.datasets.CIFAR100(
-                             datapath + 'cifar100',
-                             train = False,
-                             download=False,
-                            transform = transforms.Compose([
-                            #transforms.RandomResizedCrop(224),
-                            #transforms.RandomHorizontalFlip(),
-                            transforms.ToTensor(),
-                            transforms.Normalize(mean=[0.5071, 0.4865, 0.4409],
-                                                 std=[0.2673, 0.2564, 0.2762])
-                            ]))   
+    elif dataset_name == 'cifar100':
+        dataset = torchvision.datasets.CIFAR100(
+                         datapath + 'cifar100',
+                         train = True,
+                         download=False,
+                        transform = transforms.Compose([
+                        transforms.RandomResizedCrop(32),
+                        transforms.RandomHorizontalFlip(),
+                        transforms.ToTensor(),
+                        transforms.Normalize(mean=[0.5071, 0.4865, 0.4409],
+                                             std=[0.2673, 0.2564, 0.2762])
+                        ]))
+        dataset_test = torchvision.datasets.CIFAR100(
+                         datapath + 'cifar100',
+                         train = False,
+                         download=False,
+                        transform = transforms.Compose([
+                        #transforms.RandomResizedCrop(224),
+                        #transforms.RandomHorizontalFlip(),
+                        transforms.ToTensor(),
+                        transforms.Normalize(mean=[0.5071, 0.4865, 0.4409],
+                                             std=[0.2673, 0.2564, 0.2762])
+                        ]))
             
     elif dataset_name == 'cifar10':
         dataset = torchvision.datasets.CIFAR10(

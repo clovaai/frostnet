@@ -103,7 +103,7 @@ if __name__ == '__main__':
     logger.flush()
     logdir = this_savedir.split(train_config['save_dir'])[1]
 
-    my_logger = Logger(8097, './logs/' + logdir, False)
+    my_logger = Logger(8097, './logs/' + logdir)
     
     dataset, dataset_test = download_data(data_config["dataset_name"],
                                           data_config["data_dir"])

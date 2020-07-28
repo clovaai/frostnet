@@ -327,7 +327,7 @@ def val(num_gpu, val_loader, model, criterion):
         with torch.no_grad():
             input_var, target_var = torch.autograd.Variable(input),\
                                     torch.autograd.Variable(target)
-            # run the mdoel
+            # run the model
             output = model(input_var)
             # compute the loss
             loss = criterion(output, target_var)
@@ -344,6 +344,54 @@ def val(num_gpu, val_loader, model, criterion):
     average_epoch_loss_val = sum(epoch_loss) / len(epoch_loss)
 
     print('loss: %.4f time:%.2f Top1 acc(val): %.2f Top5 acc(val): %.2f' % (
+            average_epoch_loss_val, total_time / total_batches, 
+            sum(mAcc1) / len(mAcc1),sum(mAcc5) / len(mAcc5)))
+    
+    return average_epoch_loss_val, sum(mAcc1) / len(mAcc1),sum(mAcc5) / len(mAcc5)
+
+
+def latency_val(num_gpu, val_loader, model, criterion):
+    '''
+    :param val_loader: loaded for validation dataset
+    :param model: model
+    :param criterion: loss function
+    :return: average epoch loss, overall pixel-wise accuracy, per class accuracy, per class iu, and mIOU
+    '''
+    # switch to evaluation mode
+    model.eval()
+    total_time = 0
+    epoch_loss = []
+    total_batches = 100
+    mAcc1 = []
+    mAcc5 = []
+    for i, (input, target) in enumerate(val_loader):
+        if num_gpu > 0:
+            input = input.cuda()
+            target = target.cuda()
+
+        with torch.no_grad():
+            input_var, target_var = torch.autograd.Variable(input),\
+                                    torch.autograd.Variable(target)
+            # run the model
+            start_time = time.time()            
+            output = model(input_var)
+            time_taken = time.time() - start_time
+            total_time += time_taken            
+            # compute the loss
+            loss = criterion(output, target_var)
+        epoch_loss.append(loss.item())
+
+        acc1, acc5 = accuracy(output, target, topk=(1, 5))
+        mAcc1.append(acc1.item())
+        mAcc5.append(acc5.item())
+
+        if i >= total_batches: 
+            break
+        # compute the confusion matrix
+
+    average_epoch_loss_val = sum(epoch_loss) / len(epoch_loss)
+
+    print('loss: %.4f time:%.4f Top1 acc(val): %.2f Top5 acc(val): %.2f' % (
             average_epoch_loss_val, total_time / total_batches, 
             sum(mAcc1) / len(mAcc1),sum(mAcc5) / len(mAcc5)))
     

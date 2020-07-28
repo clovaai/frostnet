@@ -10,7 +10,7 @@ from utilities.data_transforms import MEAN, STD
 from utilities.utils import model_parameters, compute_flops
 import torch.quantization
 from utilities.train_eval_seg import train_seg_one_iter as train
-from utilities.train_eval_seg import val_seg as val
+from utilities.train_eval_seg import val_seg_latency as val
 from utilities.optimizer import *
 from loss_fns.segmentation_loss import SegmentationLoss
 os.environ['CUDA_VISIBLE_DEVICES'] = ""
@@ -210,42 +210,24 @@ def main(args):
     print("========== MODEL CALIBRATION ===========") 
     train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True,
                                                pin_memory=True, num_workers=args.workers, drop_last=True)
-    val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=args.batch_size, shuffle=False,
+    val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=1, shuffle=False,
                                              pin_memory=True, num_workers=args.workers,drop_last=True)
     criterion = SegmentationLoss(n_classes=seg_classes, loss_type=args.loss_type,
                                  device=device, ignore_idx=args.ignore_idx,
                                  class_wts=class_wts.to(device))    
-    miou_train, train_loss = train(model, train_loader, optimizer, criterion, 
-                                           seg_classes, 1, device=device)
    
     print('========== ORIGINAL MODEL SIZE ==========')
     print_size_of_model(model)
     model.quantized.fuse_model()
-    model.quantized.qconfig =  torch.quantization.get_default_qat_qconfig('qnnpack')
+    model.quantized.qconfig =  torch.quantization.get_default_qat_qconfig('fbgemm')
     torch.quantization.prepare_qat(model.quantized, inplace=True)
-
-    if args.weights_test:
-        print_info_message('Loading model weights')
-        weight_dict = torch.load(args.weights_test, map_location=torch.device('cpu'))   
-        model.load_state_dict(weight_dict) 
-        print_info_message('Weight loaded successfully')
-    else:
-        print_error_message('weight file does not exist or not specified. Please check: {}', format(args.weights_test))
-   
     qat_miou_val, qat_val_loss = val(model, val_loader, criterion, seg_classes, device=device)  
     print("========== QUANTIZED MODEL SIZE ==========")
     torch.quantization.convert(model.quantized.eval(),inplace = True)       
     print_size_of_model(model)
     miou_val, val_loss = val(model, val_loader, criterion, seg_classes, device=device)    
     evaluate(args, model, image_list, device=device)
-    print("========== EVALUATION FINISHED ==========")
-    this_state_dict = model.state_dict()
-    this_savedir = args.savedir
-    model_file_name = this_savedir + '/quantized_' + args.weights_test.split('/')[-1] + '.pth'
-    torch.save(this_state_dict, model_file_name)
-    print("Accuracy(QAT) : {} mIOU(val): {:.4f}".format(args.model, qat_miou_val))     
-    print("Accuracy(Quantized) : {} mIOU(val): {:.4f}".format(args.model, miou_val))  
-    print("quantized model saved in {}".format(model_file_name))
+
     
 if __name__ == '__main__':
     from commons.general_details import segmentation_models, segmentation_schedulers, segmentation_loss_fns, \

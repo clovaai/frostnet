@@ -39,7 +39,11 @@ This paper studies the scratch training of quantization-aware training (QAT), wh
   - Style Transfer: line 42 - 64 in [here](./Style_Transfer/train.py).
  
 - Our GradBoost version of optimizers can be found [here](./optimizer.py). 
- 
+
+## Update
+July 29th, 2020
+Quantized CPU latency results updated.[(details)](./Classification/README.md)
+
  ## License
 
 This project is distributed under MIT license.

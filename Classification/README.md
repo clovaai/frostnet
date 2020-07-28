@@ -40,7 +40,8 @@ python evaluate.py
 |resnet18 | 46.81 MB | 11.78 MB | 390 ms  | 187 ms |
 |shufflenet_v2_x0_5| 5.56 MB | 1.48 MB | 216 ms  | 128 ms |
 |shufflenet_v2_x1_0| 9.24 MB | 2.44MB | 383 ms  | 355 ms |
-|mobilenet_v2| 14.21 MB | 3.58 MB | 562 ms  | 108 ms |
+|mobilenet_v2_ReLU6| 14.21 MB | 3.58 MB | 436 ms  | 278 ms |
+|mobilenet_v2_ReLU| 14.21 MB | 3.58 MB | 562 ms  | 108 ms |
 |mobilenet_v3_large| 22.07 MB | 5.81 MB | 645 ms  | 431 ms |
 |mobilenet_v3_small| 10.91 MB | 2.92 MB | 304 ms  | 276 ms |
 |mobilenet_v3_ReLU_large| 22.06 MB | 5.57 MB | 512 ms  | 232 ms |
@@ -53,7 +54,8 @@ python evaluate.py
 |resnet18 | 46.81 MB | 11.78 MB | 390 ms  | 191 ms |
 |shufflenet_v2_x0_5| 5.56 MB | 1.48 MB | 216 ms  | 124 ms |
 |shufflenet_v2_x1_0| 9.24 MB | 2.44MB | 383 ms  | 350 ms |
-|mobilenet_v2| 14.21 MB | 3.58 MB | 562 ms  | 97 ms |
+|mobilenet_v2_ReLU6| 14.21 MB | 3.58 MB | 436 ms  | 259 ms |
+|mobilenet_v2_ReLU| 14.21 MB | 3.58 MB | 562 ms  | 97 ms |
 |mobilenet_v3_large| 22.07 MB | 5.81 MB | 645 ms  | 422 ms |
 |mobilenet_v3_small| 10.91 MB | 2.92 MB | 304 ms  | 272 ms |
 |mobilenet_v3_ReLU_large| 22.06 MB | 5.57 MB | 512 ms  | 232 ms |

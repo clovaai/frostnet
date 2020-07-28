@@ -1,5 +1,3 @@
-
-
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = ""
 num_gpu = 0
@@ -126,7 +124,7 @@ if __name__ == '__main__':
     model.fuse_model()
     model.qconfig =  torch.quantization.get_default_qat_qconfig('qnnpack')
     torch.quantization.prepare_qat(model, inplace=True)
-
+    model.load_state_dict(torch.load(Max_name, "cpu")) 
 
     with torch.no_grad():
         qat_lossVal, qat_acc1_val, qat_acc5_val = val(num_gpu, valLoader, model, criteria)

@@ -31,6 +31,7 @@ python evaluate.py
 ```
 
 ## Latency Check Results (CPU) on Imagenet_1K
+* Measured using AMD Ryzen Threadripper 1950X 16-Core Processor
 
 - fbgemm 
 

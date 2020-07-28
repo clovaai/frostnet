@@ -42,8 +42,8 @@ This paper studies the scratch training of quantization-aware training (QAT), wh
 
 ## Update
 
-July 29th, 2020
-Quantized CPU latency results updated. [(details)](./Classification/README.md)
+- July 29th, 2020
+  - Quantized CPU latency results updated. [(details)](./Classification/README.md)
 
  ## License
 

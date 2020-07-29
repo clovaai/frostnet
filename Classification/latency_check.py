@@ -53,7 +53,7 @@ if __name__ == '__main__':
     args.lr = args.learning_rate
     others= args.weight_decay*0.01
 
-        
+    torch.set_num_threads(4)      
     if not os.path.isdir(test_config['save_dir']):
         os.mkdir(test_config['save_dir'])
 
@@ -72,7 +72,8 @@ if __name__ == '__main__':
     total_parameters = netParams(model)   
     
     print("num_classes: {}".format(data_config["num_classes"]))  
-    print("total_parameters: {}".format(total_parameters))  
+    print("total_parameters: {}M".format(total_parameters/1e6))  
+    print("flops: {}M".format(N_flop/1e6))
     
     dataset, dataset_test = download_data(data_config["dataset_name"],
                                           data_config["data_dir"])
@@ -108,14 +109,10 @@ if __name__ == '__main__':
     print('========== ORIGINAL MODEL SIZE ==========')
     print_size_of_model(model)
     with torch.no_grad():
-        qat_lossVal, qat_acc1_val, qat_acc5_val = latency_val(num_gpu, valLoader, model, criteria)    
-    print('========== QAT MODEL SIZE ==========')
-    print_size_of_model(model)        
+        qat_lossVal, qat_acc1_val, qat_acc5_val = latency_val(num_gpu, valLoader, model, criteria)        
     model.fuse_model()
-    model.qconfig =  torch.quantization.get_default_qat_qconfig('qnnpack')
+    model.qconfig =  torch.quantization.get_default_qat_qconfig('fbgemm')
     torch.quantization.prepare_qat(model, inplace=True)
-    with torch.no_grad():
-        qat_lossVal, qat_acc1_val, qat_acc5_val = latency_val(num_gpu, valLoader, model, criteria)
     torch.quantization.convert(model.eval(),inplace = True)
     print("========== QUANTIZED MODEL SIZE ==========")
     print_size_of_model(model)

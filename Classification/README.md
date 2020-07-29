@@ -18,12 +18,14 @@ StatAssist & GradBoost: A Study on Optimal INT8 Quantization-aware Training from
 ## Run example
 
 - Train
+
 Modify setting/train.json before run.   
 ```shell
 python train.py
 
 ```
 - Test
+
 Modify setting/evaluate.json before run.   
 ```shell
 python evaluate.py

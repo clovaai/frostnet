@@ -1,9 +1,9 @@
 {
     "test_config": {     
-        "weight_name": "./result/mobilenet_v3_large04-21_1715_QSGD/model_1.pth",
-        "Model": "mobilenet_v3_ReLU_small",
+        "weight_name": "",
+        "Model": "mobilenet_v2",
         "epochs": 1,
-        "batch_size" :256,
+        "batch_size" :1,
         "save_dir": "./result",
         
         "learning_rate": 5e-1,

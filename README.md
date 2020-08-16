@@ -40,7 +40,11 @@ This paper studies the scratch training of quantization-aware training (QAT), wh
  
 - Our GradBoost version of optimizers can be found [here](./optimizer.py). 
 
+## Update
 
+- July 29th, 2020
+  - Quantized CPU latency results updated. [(details)](./Classification/README.md)
+  
  ## License
 
 This project is distributed under MIT license.

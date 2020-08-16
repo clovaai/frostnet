@@ -41,7 +41,7 @@ python evaluate.py
 
 | Model   | Params | Flops | Size (FP) | Size(quantized) | Latency(FP) | Latency(quantized)|Rate(%)|
 |:-------:|:------:|:-----:|:---------:|:---------------:|------------:|------------------:|------------:|
-|resnet18 | 11.68 M | 1.82 M| 46.81 MB | 11.78 MB | 366ms  | 245 ms | -33.06 |
+|resnet18 | 11.68 M | 1.82 B| 46.81 MB | 11.78 MB | 366ms  | 245 ms | -33.06 |
 |shufflenet_v2_x0_5|  1.36 M | 43.65 M|  5.56 MB | 1.48 MB | 157 ms  | 89 ms | -43.31 |
 |shufflenet_v2_x1_0|  2.27 M | 150.6 M|  9.24 MB | 2.44MB | 255 ms  | 372 ms | +45.88 | 
 |mobilenet_v2_ReLU6|  3.50 M | 12.22 M| 14.21 MB | 3.58 MB | 282 ms  | 143 ms | -49.29 |

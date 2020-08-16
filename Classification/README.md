@@ -37,7 +37,7 @@ python evaluate.py
 
 - fbgemm 
 
-| Model   | Params | Flops | Size (FP) | Size(quantized) | Latency(FP) | Latency(quantized)|
+| Model   | Params | MAdds | Size (FP) | Size(quantized) | Latency(FP) | Latency(quantized)|
 |:-------:|:------:|:-----:|:---------:|:---------------:|------------:|------------------:|
 |resnet18 | 11.68 M | 3.62 B| 46.81 MB | 11.78 MB | 366ms  | 245 ms |
 |shufflenet_v2_x0_5|  1.36 M | 78.9 M|  5.56 MB | 1.48 MB | 157 ms  | 89 ms |

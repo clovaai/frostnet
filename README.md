@@ -64,7 +64,7 @@ We trained FrostNets with one of the popular object detection project, [mmdetect
 
 ## Update
 - November 27th, 2020
-  - FrostNet, quantization-aware neural network architecture, updated.
+  - FrostNet, quantization-aware neural network architecture, updated. [(details)](./frostnet.py)
 - July 29th, 2020
   - Quantized CPU latency results updated. [(details)](./Classification/README.md)
   

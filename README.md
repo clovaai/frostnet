@@ -1,6 +1,6 @@
 ## FrostNet: Towards Quantization-Aware Network Architecture Search
 
-**Taehoon Kim<sup>1,2</sup>, YoungJoon Yoo<sup>1</sup>, Jihoon Yang<sup>2</sup>** | [Paper](https://arxiv.org/pdf/2007.00992.pdf) | [Pretrained Models](#pretrained)
+**Taehoon Kim<sup>1,2</sup>, YoungJoon Yoo<sup>1</sup>, Jihoon Yang<sup>2</sup>** | [Paper](https://arxiv.org/pdf/2006.09679.pdf) | [Pretrained Models](#pretrained)
 
 
 1. Clova AI Research, NAVER Corp.

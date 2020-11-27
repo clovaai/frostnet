@@ -1,36 +1,58 @@
-# StatAssist & GradBoost
+## FrostNet: Towards Quantization-Aware Network Architecture Search
 
-Official PyTorch implementation of [StatAssist & GradBoost: A Study on Optimal INT8 Quantization-aware Training from Scratch](https://arxiv.org/abs/2006.09679) 
+**Taehoon Kim<sup>1,2</sup>, YoungJoon Yoo<sup>1</sup>, Jihoon Yang<sup>2</sup>** | [Paper](https://arxiv.org/pdf/2007.00992.pdf) | [Pretrained Models](#pretrained)
 
-Taehoon Kim<sup>1,2</sup>, YoungJoon Yoo<sup>1</sup>, Jihoon Yang<sup>2</sup><br>
 
 1. Clova AI Research, NAVER Corp.
 2. Sogang University Machine Learning Lab.
 
-### Abstract
 
-This paper studies the scratch training of quantization-aware training (QAT), which has been applied to the lossless conversion of lower-bit, especially for INT8 quantization. Due to its training instability, QAT have required a full-precision (FP) pre-trained weight for fine-tuning and the performance is bound to the original FP model with floating-point computations. Here, we propose critical but straightforward optimization methods which enable the scratch training: floating-point statistic assisting (StatAssist) and stochastic-gradient boosting (GradBoost). We discovered that, first, the scratch QAT get comparable and often surpasses the performance of the floating-point counterpart without any help of the pre-trained model, especially when the model becomes complicated.We also show that our method can even train the minimax generation loss, which is very unstable and hence difficult to apply QAT fine-tuning. From extent experiments, we show that our method successfully enables QAT to train various deep models from scratch: classification, object detection, semantic segmentation, and style transfer, with comparable or often better performance than their FP baselines.
+## Abstract
+
+INT8 quantization has become one of the standard techniques for deploying convolutional neural networks (CNNs) on edge devices to reduce the memory and computational resource usages. By analyzing quantized performances of existing mobile-target network architectures, we can raise an issue regarding the importance of network architecture for optimal INT8 quantization. In this paper, we present a new network architecture search (NAS) procedure to find a network that guarantees both full-precision (FLOAT32) and quantized (INT8) performances. We first propose critical but straightforward optimization method which enables quantization-aware training (QAT) : floating-point statistic assisting (StatAssist) and stochastic gradient boosting (GradBoost). By integrating the gradient-based NAS with StatAssist and GradBoost, we discovered a quantization-efficient network building block, Frost bottleneck. Furthermore, we used Frost bottleneck as the building block for hardware-aware NAS to obtain quantization-efficient networks, FrostNets, which show improved quantization performances compared to other mobile-target networks while maintaining competitive FLOAT32 performance. Our FrostNets achieve higher recognition accuracy than existing CNNs with comparable latency when quantized, due to higher latency reduction rate (average 65%).
 
 
-## Requirements
+## Model performances
+### ImageNet classification results
 
-- python 3
-- pytorch >= 1.4.0
-- torchvision >= 0.5.0
-- opencv-python
-- numpy
-- pillow
-- tqdm
-- visdom
+- Accuracy comparison with other state of the art lightweight models:
 
-## Supports
+  <img src=etc/acc_latency.png width=480 hspace=30><br>
+  <img src=etc/classification.png width=720> 
+
+### COCO detection results
+- mAP scores comparison on MS COCO val split 2017 with RetinaNet and Faster-RCNN:
+
+  <img src=etc/detection_retina.png width=360 hspace=30> <img src=etc/detection_faster.png width=360>
+
+
+<h2 id="pretrained"> Pretrained models </h2>
+
+- We provide FrostNets' pretrained weights on ImageNet dataset. Note that all the models are trained and evaluated with 224x224 image size. [Google Drive](https://drive.google.com/file/d/196nKcns-6f1drrcl1mpD1MAIQxXCxyhF/view?usp=sharing)
+   
+## Getting Started
+
+
+### Training your own FrostNet
+We trained FrostNets with one of the popular imagenet classification code, rwightman's [pytorch-image-models](https://github.com/rwightman/pytorch-image-models) for more efficient training. After including FrostNet's model file into the training code, one can train FrostNets with the command line in [training_confs](./training_commands.txt).
+
+### Post quantization examples
+We also provide post-quantization supported version of rwightman's pytorch-image-models in [quanitzation-pytorch-image-models](https://github.com/tgisaturday/pytorch-image-models) for easier post-quantization with PyTorch.
+
+### Training object detection models with FrostNet backbones
+We trained FrostNets with one of the popular object detection project, [mmdetection](https://github.com/rwightman/pytorch-image-models) for more efficient training. Include [frostnet_features.py](./frostnet_features.py) to mmdetection codes to train models. 
+
+
+### StatAssist & Gradboost examples
+
+#### Supports
 
 - Classification (AlexNet, VGG, Resnet, ShuffleNetV2, Mobilenet V2 & V3) [(details)](./Classification/README.md)
 - Object Detection (TDSOD, SSDLITE-MobileNet V2) [(details)](./Object_Detection/README.md)
 - Semantic Segmentation (ESPNet V1 & V2, Mobilenet V2 & V3) [(details)](./Semantic_Segmentation/README.md)
 - Style Transfer (Pix2Pix, CycleGAN) [(details)](./Style_Transfer/README.md)
 
-## Implementations
+#### Implementations
 
 - Our StatAssist implementations can be found in:
   - Classification: line 149 - 164 in [here](./Classification/train.py).
@@ -41,7 +63,8 @@ This paper studies the scratch training of quantization-aware training (QAT), wh
 - Our GradBoost version of optimizers can be found [here](./optimizer.py). 
 
 ## Update
-
+- November 27th, 2020
+  - FrostNet, Quantized-Aware Neural Network, updated.
 - July 29th, 2020
   - Quantized CPU latency results updated. [(details)](./Classification/README.md)
   

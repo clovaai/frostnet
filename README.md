@@ -97,12 +97,12 @@ THE SOFTWARE.
 ## How to cite
 
 ```
-@misc{kim2020statassist,
-    title={StatAssist & GradBoost: A Study on Optimal INT8 Quantization-aware Training from Scratch},
-    author={Taehoon Kim and Youngjoon Yoo and Jihoon Yang},
-    year={2020},
-    eprint={2006.09679},
-    archivePrefix={arXiv},
-    primaryClass={cs.LG}
+@misc{kim2020frostnet,
+      title={FrostNet: Towards Quantization-Aware Network Architecture Search}, 
+      author={Taehoon Kim and YoungJoon Yoo and Jihoon Yang},
+      year={2020},
+      eprint={2006.09679},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
 }
 ```

@@ -1,6 +1,6 @@
 tqdm
 numpy
 visdom
-pillow<7
+pillow
 torchvision
 matplotlib
